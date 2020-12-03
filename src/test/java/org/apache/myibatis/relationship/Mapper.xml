@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2019 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.apache.myibatis.relationship.Mapper">
+
+  <select id="selectUser" parameterType="int" resultMap="results">
+    select *
+    from user
+           left join user_address on user_address.user_id = user.id
+           left join address on address.id = user_address.address_id
+           left join user_position on user_position.user_id = user.id
+           left join position on user_position.position_id = position.id
+    where user.id = #{id}
+  </select>
+
+  <resultMap type="org.apache.myibatis.relationship.User" id="results">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <association property="address" resultMap="addressMap"/>
+    <collection property="positions" ofType="org.apache.myibatis.relationship.Position">
+      <id column="position_id" property="id"/>
+      <result column="title" property="title"/>
+    </collection>
+  </resultMap>
+
+  <resultMap type="org.apache.myibatis.relationship.Address" id="addressMap">
+    <id column="address_id" property="id"/>
+    <result column="province" property="province"/>
+    <result column="city" property="city"/>
+    <result column="area" property="area"/>
+  </resultMap>
+
+</mapper>
