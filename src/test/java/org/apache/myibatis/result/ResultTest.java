@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myibatis.mapping;
+package org.apache.myibatis.result;
 
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.io.Resources;
@@ -27,20 +27,20 @@ import org.junit.jupiter.api.Test;
 import java.io.Reader;
 import java.util.List;
 
-class MappingTest {
+class ResultTest {
 
   private static SqlSessionFactory sqlSessionFactory;
 
   @BeforeAll
   static void setUp() throws Exception {
     // create a SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/myibatis/mapping/mybatis-config.xml")) {
+    try (Reader reader = Resources.getResourceAsReader("org/apache/myibatis/result/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-      "org/apache/myibatis/mapping/CreateDB.sql");
+      "org/apache/myibatis/result/CreateDB.sql");
   }
 
   @Test

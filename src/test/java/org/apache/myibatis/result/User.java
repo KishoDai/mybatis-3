@@ -1,5 +1,5 @@
 /**
- * Copyright 2009-2019 the original author or authors.
+ * Copyright 2009-2015 the original author or authors.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myibatis.mapping;
+package org.apache.myibatis.result;
 
-import java.util.List;
+public class User {
 
-public interface Mapper {
+  private Integer id;
+  private String name;
 
-  List<User> selectUsersByResultMap();
+  public Integer getId() {
+    return id;
+  }
 
-  List<User> selectUsers();
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }
